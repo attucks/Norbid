@@ -1,4 +1,26 @@
-//NorbidGrentler1_0 2018 by Matt Cruz and the eople whose code he stole
+//Norbid 2018 by Matt Cruz and the eople whose code he stole
+
+      // This project was really to find a fun way to learn how to utilize an API
+      // I chose twitter's api after hearing a podcast that had Jonny Sun and he
+      // spoke about his twitter bots. I plan on taking what I learned here and 
+      // applying it elsewhere. Is this the best haiku writing bot? Hell no. But,
+      // it was incredibly fun to make and when you get the first 'Success' returned,
+      // you'll know what you did it. Steal this code and make it your own. I may tweak
+      // Norbid in the future over time but this is where I left it happily.
+
+      // What does this bot do? 
+      // Tweets haikus every 42 minutes (yes, because od Douglas Adams) (set in var minutes ) 
+      // or if someone tweets at it see ~ lines 164 on)
+
+      // How does it do it? 
+      // writePoem() cycles through templates of module which import from other js files, 
+      // these are used in a for loop that checks the syllable count and either returns 
+      // or only adds to the poem variable. If you want to steal this code to just 
+      // tweet something, strip out the haiku app and use the poem variable to deliver the status
+      // Bot does not upload images because I didn't feel like it, but maybe later. 
+
+
+
 //Required variables
 const express = require("express"); // Relic (probably unsued but to afraid to remove it)
 const app = express(); // Relic (probably unsued but to afraid to remove it)
@@ -6,7 +28,7 @@ const app = express(); // Relic (probably unsued but to afraid to remove it)
 const config = require('./config.js'); //calls for the authentication key to present
 var twit = require('twit'); //installs twit module (accesses library)
 const Twitter = new twit(config); //sets up var to use
-var bodyParser = require('body-parser'); 
+
 
 
 //imports libraries and delcares prepositions
@@ -19,10 +41,10 @@ var adj2 = (require('./Adj2.js'));
 var id2 = (require('./Id2.js'));
 var id3 = (require('./Id3.js'));
 
-////////////////////////
+///////////////////////
 ///////////////////////
 
-//This was the original tweet generated froma thrd aprty app, since deleted, lives here
+//This was the original tweet generated from a third aprty app, since deleted, lives here
 var postOutput = "cross subsequent as virus isolate corneal algal smallpox were";
 ////////////////////////////
 
@@ -48,13 +70,11 @@ poem = "";
 //cycle through the templates and select one at random
 var Temp = Templates[Math.floor(Math.random() * Templates.length)];
 var arrayLength = Temp.length;
-
 //this function returns random values from the selected array like v1a verbs
 function run(x) {
 	var outPut = x[Math.floor(Math.random() * x.length)];
 	return outPut;
 };
-
 //For loop that 'writes' the poem, cycling through checking for syls and adding to the sylcount
 for (var i = 0; i < arrayLength; i++) {
   //ONE SYLL
@@ -112,12 +132,9 @@ function tweetPoem (tweet) {
             console.log(err);
           }
           else{
-            var unix_timestamp = Date.now();
-            var date = new Date(unix_timestamp*1000);
-            var hours = date.getHours();
-            var minutes = "0" + date.getMinutes();
-            var seconds = "0" + date.getSeconds();
-            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            var timeStamp = Date.now() * 1000 
+
+            
             console.log('Success ' + formattedTime);
             console.log(" ");
           }
@@ -125,7 +142,7 @@ function tweetPoem (tweet) {
 };
 
 // Runs the Write Poem and  when program is initialized
-var poemLC = poem.toLowerCase();
+var poemLC = poem.toLowerCase(); //pretty sure this does not work but didnt bother removing it
  writePoem();
  console.log(poem);
 console.log(" ");
@@ -158,9 +175,7 @@ function tweetEvent(tweetMSG) {
 var json = JSON.stringify(tweetMSG, null, 2);
 
 // This is meant to log the tweets but it keeps throwing
-// a deprecation error so I got rid of it for now. worth coming 
-// back to when this is left on for good
-//
+// a deprecation error so I got rid of it for now. 
 //  var fs= require('fs');
 //  fs.write("tweets.json", json);
 
@@ -183,6 +198,3 @@ var json = JSON.stringify(tweetMSG, null, 2);
 };
 
 
-/////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////PLAYGROUND////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
